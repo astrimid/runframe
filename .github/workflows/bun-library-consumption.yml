@@ -13,6 +13,24 @@ jobs:
     timeout-minutes: 10
 
     steps:
+
+      - name: Debug runner environment
+        run: |
+          echo "🏃 Runner info:"
+          echo "  - OS: $(uname -a)"
+          echo "  - CPU: $(nproc) cores"
+          echo "  - Memory: $(free -h | grep Mem | awk '{print $2}')"
+          echo "  - Disk: $(df -h / | awk 'NR==2 {print $2}')"
+          
+          echo ""
+          echo "📦 Bun cache info:"
+          bun pm cache  # Show cache location and size
+          du -sh ~/.bun/install/cache 2>/dev/null || echo "Cache empty"
+          
+          echo ""
+          echo "🌐 Network info:"
+          curl -s -o /dev/null -w "npm registry latency: %{time_total}s\n" https://registry.npmjs.org/
+
       - name: Checkout code
         uses: actions/checkout@v2
 
