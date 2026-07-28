@@ -16,7 +16,7 @@ jobs:
 
       - name: Debug runner environment
         run: |
-          echo "🏃 Runner info:"
+          echo "Runner info:"
           echo "  - OS: $(uname -a)"
           echo "  - CPU: $(nproc) cores"
           echo "  - Memory: $(free -h | grep Mem | awk '{print $2}')"
