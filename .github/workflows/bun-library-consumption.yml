@@ -49,7 +49,7 @@ jobs:
                   fsMap={{ "main.tsx": "circuit.add(<resistor resistance='1k' />)" }}
                   entrypoint="main.tsx"
                 />
-                <CircuitJsonPreview circuitJson={[]} style={{ display: "none" }} />
+                <CircuitJsonPreview circuitJson={[]} />
               </div>
             )
           }
