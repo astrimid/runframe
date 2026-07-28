@@ -51,7 +51,7 @@ jobs:
         run: bun run build
 
       - name: Pack package
-        run: bun pack
+        run: bun pm pack
 
       - name: Test library consumption in blank Vite app
         run: |
