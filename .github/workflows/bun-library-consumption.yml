@@ -33,7 +33,7 @@ jobs:
       - name: Test library consumption in blank Vite app
         run: |
           cd /tmp
-          bun create vite test-app --template react-ts --no-install
+          bun create vite test-app --template react-ts --no-install --no-interactive
           cd test-app
           bun install
           bun add ${{ github.workspace }}/tscircuit-runframe-*.tgz
