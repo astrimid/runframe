@@ -1,5 +1,5 @@
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
-// @ts-ignore
+// @ts-expect-error
 import testGlbUrl from "./assets/test.glb"
 
 export default () => {

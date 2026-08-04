@@ -9,7 +9,9 @@ export const getPhaseColor = (phase: string) => {
 
 export const RenderTimingsBar = ({
   phaseTimings,
-}: { phaseTimings?: Record<string, number> }) => {
+}: {
+  phaseTimings?: Record<string, number>
+}) => {
   if (!phaseTimings) return null
 
   const totalTime = Object.values(phaseTimings).reduce(

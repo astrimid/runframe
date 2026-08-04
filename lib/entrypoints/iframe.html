@@ -84,14 +84,14 @@
     <div id="root" style="visibility: hidden;"></div>
     
     <script>
-      window.onload = function() {
+      window.onload = () => {
         const loader = document.getElementById("loader");
         const root = document.getElementById("root");
 
         // Hide the loader and show the root when the page has fully loaded
         loader.style.transition = "opacity 0.3s ease";
         loader.style.opacity = "0"; // Fade out the loader
-        setTimeout(function() {
+        setTimeout(() => {
           loader.style.display = "none"; // Hide loader completely
           loader.remove()
           root.style.visibility = "visible"; // Show the root content

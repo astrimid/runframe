@@ -1,5 +1,5 @@
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
-// @ts-ignore
+// @ts-expect-error
 import stepFileUrl from "./assets/SW_Push_1P1T_NO_CK_KMR2.step"
 
 export default () => {

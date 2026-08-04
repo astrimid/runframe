@@ -27,6 +27,7 @@
     "format:check": "biome format .",
     "format": "biome format --write .",
     "biome:ci": "biome ci .",
+    "biome:fix": "biome check --write .",
     "vercel-build": "bun run build:css && cosmos-export",
     "serve:cosmos": "serve cosmos-export",
     "pkg-pr-new-release": "bunx pkg-pr-new publish --comment=off --peerDeps"

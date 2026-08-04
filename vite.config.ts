@@ -67,7 +67,7 @@ if (!process.env.VERCEL && !process.env.STANDALONE) {
   plugins.push(fakeRegistryPlugin())
 }
 
-let build: any = undefined
+let build: any
 
 if (process.env.STANDALONE === "1") {
   build = {
