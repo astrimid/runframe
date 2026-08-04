@@ -66,6 +66,8 @@ export const EnhancedFileSelectorCombobox = ({
   searchPlaceholder = "Search for file",
   emptyMessage = "No files found in this directory.",
   recentlySavedFiles = [],
+  pinnedFiles = [],
+  onToggleFavorite = () => {},
 }: {
   files: string[]
   currentFile: string
@@ -76,6 +78,8 @@ export const EnhancedFileSelectorCombobox = ({
   searchPlaceholder?: string
   emptyMessage?: string
   recentlySavedFiles?: string[]
+  pinnedFiles?: string[]
+  onToggleFavorite?: (filePath: string) => void
 }) => {
   const [open, setOpen] = useState(false)
   const [file, setFile] = useState(currentFile)
@@ -473,7 +477,6 @@ export const EnhancedFileSelectorCombobox = ({
                 <>
                   <CommandEmpty>{emptyMessage}</CommandEmpty>
 
-                  {/* Pinned/Favorites Section - Commented out for now
                   {pinnedFiles.length > 0 && (
                     <CommandGroup
                       heading="Favorites"
@@ -491,6 +494,9 @@ export const EnhancedFileSelectorCombobox = ({
                               "rf-group",
                             )}
                           >
+                            <span className="rf-truncate">
+                              {getDisplayName(path)}
+                            </span>
                             {onToggleFavorite && (
                               <button
                                 type="button"
@@ -498,30 +504,20 @@ export const EnhancedFileSelectorCombobox = ({
                                   e.stopPropagation()
                                   onToggleFavorite(path)
                                 }}
-                                className="rf-mr-2 rf-p-0 rf-bg-transparent rf-border-none"
-                                aria-label="Remove from favorites"
-                                title="Remove from favorites"
+                                className={cn(
+                                  "rf-ml-auto rf-p-1 rf-rounded hover:rf-bg-slate-200",
+                                  pinnedFiles.includes(path)
+                                    ? "rf-text-amber-500"
+                                    : "rf-text-slate-400",
+                                )}
                               >
-                                <Star className="rf-h-4 rf-w-4 rf-text-amber-500 rf-fill-amber-500" />
+                                ★
                               </button>
                             )}
-                            {getDisplayName(path.split("/").pop() || "")}
-                            <span className="rf-text-xs rf-text-muted-foreground rf-ml-2 rf-truncate rf-max-w-[40%]">
-                              {getDirectoryPath(path)}
-                            </span>
-                            <Check
-                              className={cn(
-                                "rf-ml-auto rf-h-4 rf-w-4",
-                                path === currentFile
-                                  ? "rf-opacity-100"
-                                  : "rf-opacity-0",
-                              )}
-                            />
                           </CommandItem>
                         ))}
                     </CommandGroup>
                   )}
-                  */}
 
                   {/* Current Directory Files */}
                   {currentFiles.length > 0 && (
