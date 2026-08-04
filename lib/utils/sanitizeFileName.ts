@@ -1,28 +1,33 @@
 export const sanitizeFileName = (name: string): string => {
-  let sanitized = name
-    .trim() // Move trim to the start
-    // Replace invalid characters (\ / : * ? " < > |) with underscores
-    .replace(/[\\/:*?"<>|]/g, "_")
-    // Remove control characters
-    .replace(/[\x00-\x1f]/g, "")
-    // Strip leading dots
-    .replace(/^\.+/, "")
-    // Strip trailing dots
-    .replace(/\.+$/, "")
-    // Collapse multiple whitespace to single space
-    .replace(/\s+/g, " ")
-    // Collapse multiple underscores
-    .replace(/_+/g, "_")
+  const MAX_LENGTH = 200;
+  const FALLBACK_NAME = "untitled";
 
-  // Prefix Windows reserved names (CON, PRN, AUX, NUL, COM0-9, LPT0-9)
-  const reserved = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])$/i
-  if (reserved.test(sanitized)) {
-    sanitized = `_${sanitized}`
+  const INVALID_CHARS = /[\\/:*?"<>|]/g;
+  const WINDOWS_RESERVED = /^(con|prn|aux|nul|com[1-9]|lpt[1-9])$/i;
+
+  let sanitized = name
+    .trim()
+    .replace(INVALID_CHARS, "_")
+    .replace(/\p{C}/gu, "")
+    .replace(/\s+/g, " ")
+    .replace(/_+/g, "_")
+    .replace(/^[.\s_]+/, "")    // Combined leading cleanup
+    .replace(/[.\s_]+$/, "");   // Combined trailing cleanup
+
+  sanitized = Array.from(sanitized)
+    .slice(0, MAX_LENGTH)
+    .join("")
+    .replace(/^[.\s_]+/, "")    // Re-clean edges after truncation
+    .replace(/[.\s_]+$/, "");
+
+  if (!sanitized || /^_+$/.test(sanitized)) {
+    return FALLBACK_NAME;
   }
 
-  // Limit to 200 characters
-  sanitized = sanitized.slice(0, 200)
+  const baseName = sanitized.split(".")[0];
+  if (WINDOWS_RESERVED.test(baseName)) {
+    return `_${sanitized}`;
+  }
 
-  // Fall back to "untitled" if empty
-  return sanitized || "untitled"
-}
+  return sanitized;
+};
