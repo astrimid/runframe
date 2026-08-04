@@ -66,9 +66,7 @@ const fetchLatestEvalVersion = async () => {
       const data = await response.json()
       return data.tags?.latest as string | undefined
     }
-  } catch (err) {
-    console.error("Failed to fetch latest eval version", err)
-  }
+  } catch (_err) {}
   return undefined
 }
 
@@ -110,7 +108,7 @@ export const RunFrame = (props: RunFrameProps) => {
   const cancelExecutionRef = useRef<(() => void) | null>(null)
   const [autoroutingGraphics, setAutoroutingGraphics] = useState<any>(null)
   const [runCountTrigger, incRunCountTrigger] = useReducer(
-    (acc: number, s: number) => acc + 1,
+    (acc: number, _s: number) => acc + 1,
     0,
   )
   const setLastRunEvalVersion = useRunnerStore((s) => s.setLastRunEvalVersion)
@@ -193,9 +191,7 @@ export const RunFrame = (props: RunFrameProps) => {
           setLastRunEvalVersion(evalVersion)
         }
         if (!cancelled) setDependenciesLoaded(true)
-      } catch (err) {
-        console.error("Failed to preload eval worker", err)
-      }
+      } catch (_err) {}
     }
     load()
     return () => {
@@ -399,7 +395,7 @@ export const RunFrame = (props: RunFrameProps) => {
       worker.on("board:renderPhaseStarted", (event: any) => {
         renderLog.lastRenderEvent = event
         renderLog.eventsProcessed = (renderLog.eventsProcessed ?? 0) + 1
-        const hasProcessedEnoughToEstimateProgress =
+        const _hasProcessedEnoughToEstimateProgress =
           renderLog.eventsProcessed > 2
 
         const estProgressLinear =
@@ -468,7 +464,6 @@ export const RunFrame = (props: RunFrameProps) => {
           emitRunCompleted(buildRunCompletedPayload({ executionError: e }))
           setError({ error: message, stack: e.stack })
           setRenderLog(null)
-          console.error(e)
           return { success: false }
         })
       debug("worker call started")
@@ -539,9 +534,6 @@ export const RunFrame = (props: RunFrameProps) => {
   const dragTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
   const handleEditEvent = (event: ManualEditEvent) => {
     if (!event || event === null) {
-      console.warn(
-        "[RunFrame] handleEditEvent received null or undefined event.",
-      )
       return
     }
     if (event.in_progress) {
@@ -598,8 +590,6 @@ export const RunFrame = (props: RunFrameProps) => {
         )
       })
       .catch((error) => {
-        console.error("Failed to report autorouting bug", error)
-
         const isUnauthorized =
           error instanceof HTTPError && error.response?.status === 401
 

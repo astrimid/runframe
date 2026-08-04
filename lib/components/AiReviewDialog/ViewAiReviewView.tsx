@@ -4,6 +4,7 @@ import { DialogHeader, DialogTitle } from "../ui/dialog"
 import { marked } from "marked"
 import type { AiReview } from "./types"
 import { getRegistryKy } from "lib/utils/get-registry-ky"
+import DOMPurify from "dompurify"
 
 export const AiReviewViewView = ({
   review,
@@ -39,9 +40,7 @@ export const AiReviewViewView = ({
           setAiReviewText(newAiReview.ai_review_text)
           return
         }
-      } catch (e) {
-        console.error("Failed to load AI review text", e)
-      }
+      } catch (_e) {}
 
       timeout = setTimeout(loadAiReviewText, 1000)
     }
@@ -49,8 +48,9 @@ export const AiReviewViewView = ({
     return () => clearTimeout(timeout)
   }, [aiReviewId])
 
-  const html = useMemo(
-    () => marked.parse(review.ai_review_text || "") as string,
+  const sanitizedHtml = useMemo(
+    () =>
+      DOMPurify.sanitize(marked.parse(review.ai_review_text || "") as string),
     [review.ai_review_text],
   )
   return (
@@ -64,7 +64,8 @@ export const AiReviewViewView = ({
       {aiReviewText ? (
         <div
           className="rf-h-64 rf-overflow-y-auto rf-prose rf-max-w-none rf-mt-2"
-          dangerouslySetInnerHTML={{ __html: html }}
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: sanitized with dompurify
+          dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
         />
       ) : (
         <div className="rf-h-64 rf-overflow-y-auto rf-prose rf-max-w-none rf-mt-2">

@@ -222,7 +222,7 @@ export const CircuitJsonTableViewer: React.FC<{ elements: Element[] }> = ({
       name: "other_ids",
       renderCell: (row: ProcessedElement) => (
         <div className="rf-space-x-2">
-          {Object.entries(row.other_ids).map(([other_id, v]) => (
+          {Object.entries(row.other_ids).map(([_other_id, v]) => (
             <ClickableText
               key={v}
               text={v}

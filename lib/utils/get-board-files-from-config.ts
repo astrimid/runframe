@@ -17,8 +17,7 @@ const parseProjectConfig = (configContent?: string): ProjectConfig | null => {
   try {
     const parsedJson = JSON.parse(configContent)
     return projectConfig.parse(parsedJson)
-  } catch (error) {
-    console.warn("Failed to parse tscircuit.config.json", error)
+  } catch (_error) {
     return null
   }
 }

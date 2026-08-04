@@ -51,8 +51,7 @@ export function isFileApiAccessible(): boolean {
     }
 
     return false
-  } catch (error) {
-    console.error("[isFileApiAccessible] Error:", error)
+  } catch (_error) {
     return false
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { ErrorBoundary } from "react-error-boundary"
 import { ErrorFallback } from "lib/components/ErrorFallback"
 import { CircuitJsonPreview } from "lib/components/CircuitJsonPreview/CircuitJsonPreview"
@@ -35,12 +35,14 @@ export default () => {
     <div className="rf-p-4">
       <div className="rf-mb-4 rf-flex rf-gap-2 rf-items-center">
         <button
+          type="button"
           onClick={() => setSimulateError(true)}
           className="rf-px-4 rf-py-2 rf-bg-red-100 rf-rounded"
         >
           Simulate Error
         </button>
         <button
+          type="button"
           onClick={() => setSimulateError(false)}
           className="rf-px-4 rf-py-2 rf-bg-green-100 rf-rounded"
         >

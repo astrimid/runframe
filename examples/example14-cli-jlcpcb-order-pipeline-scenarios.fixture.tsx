@@ -7,7 +7,7 @@ import { DebugEventsTable } from "./utils/DebugEventsTable"
 import { isFileApiAccessible } from "./utils/isFileApiAccessible.ts"
 
 export default () => {
-  const recentEvents = useRunFrameStore((state) => state.recentEvents)
+  const _recentEvents = useRunFrameStore((state) => state.recentEvents)
   const pushEvent = useRunFrameStore((state) => state.pushEvent)
   const [selectedScenario, setSelectedScenario] = useState<string>("none")
   const [setSimulateScenarioOrder] = useRunFrameStore((s) => [
@@ -48,9 +48,7 @@ export default () => {
             },
           })
           .json()
-      } catch (error) {
-        console.error("Error polling order progress:", error)
-      }
+      } catch (_error) {}
     }, 2000) // Poll every 2 seconds
 
     return () => clearInterval(pollInterval)

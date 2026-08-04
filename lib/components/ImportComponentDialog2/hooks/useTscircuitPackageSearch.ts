@@ -32,7 +32,6 @@ export const useTscircuitPackageSearch = ({
         setResults(mappedResults)
         return mappedResults
       } catch (error) {
-        console.error("Error searching tscircuit packages", error)
         setResults([])
         setError(
           error instanceof Error

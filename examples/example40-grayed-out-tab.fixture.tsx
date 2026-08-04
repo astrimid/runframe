@@ -1,5 +1,4 @@
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
-import React from "react"
 
 export default () => (
   <RunFrame

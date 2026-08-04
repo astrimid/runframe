@@ -20,8 +20,7 @@ export const OrderDialog: FC<OrderDialogProps> = ({
   isOpen,
   onClose,
   stage,
-  setStage,
-  circuitJson,
+
   packageReleaseId,
   signIn,
   isLoggedIn,

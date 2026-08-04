@@ -1,5 +1,4 @@
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
-import React from "react"
 import { isFileApiAccessible } from "./utils/isFileApiAccessible"
 
 export default () => {

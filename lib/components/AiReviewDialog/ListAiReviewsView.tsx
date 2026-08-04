@@ -32,8 +32,7 @@ export const AiReviewListView = ({
       .get("ai_reviews/list", { searchParams: { package_name: packageName } })
       .json<{ ai_reviews: AiReview[] }>()
       .then((data) => setReviews(data.ai_reviews))
-      .catch((err) => {
-        console.error("Failed to load AI reviews", err)
+      .catch((_err) => {
         toast.error("Failed to load AI reviews")
       })
       .finally(() => setLoading(false))
@@ -62,8 +61,7 @@ export const AiReviewListView = ({
       setReviews((r) => [ai_review, ...r])
       onSelectReview(ai_review)
       toast.success("AI review requested")
-    } catch (err) {
-      console.error("Failed to create AI review", err)
+    } catch (_err) {
       toast.error("Failed to request AI review")
     } finally {
       setCreating(false)
@@ -84,13 +82,14 @@ export const AiReviewListView = ({
             <div className="rf-text-sm">Loading...</div>
           ) : reviews.length > 0 ? (
             reviews.map((review) => (
-              <div
+              <button
+                type="button"
                 key={review.ai_review_id}
-                className="rf-text-sm rf-p-2 rf-cursor-pointer rf-rounded hover:rf-bg-zinc-100"
+                className="rf-text-sm rf-p-2 rf-cursor-pointer rf-rounded hover:rf-bg-zinc-100 rf-w-full rf-text-left rf-bg-transparent rf-border-none"
                 onClick={() => onSelectReview(review)}
               >
                 {new Date(review.created_at || "").toLocaleString()}
-              </div>
+              </button>
             ))
           ) : (
             <div className="rf-text-sm rf-text-muted-foreground">

@@ -85,9 +85,7 @@ export default () => {
       })
     }
 
-    seedAnalogSimulationErrorFixture().catch((error) => {
-      console.error("Failed to seed analog simulation error fixture", error)
-    })
+    seedAnalogSimulationErrorFixture().catch((_error) => {})
   }, [])
 
   if (!isFileApiAccessible()) {

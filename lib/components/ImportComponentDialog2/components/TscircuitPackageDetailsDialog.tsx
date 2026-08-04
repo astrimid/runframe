@@ -13,7 +13,6 @@ import type {
   TscircuitPackageDetails,
   TscircuitPackageSearchResult,
 } from "../types"
-import type { Package } from "@tscircuit/fake-snippets/schema"
 import { zIndexMap } from "lib/utils/z-index-map"
 
 interface TscircuitPackageDetailsDialogProps {
@@ -98,66 +97,62 @@ export const TscircuitPackageDetailsDialog = ({
           ) : null}
 
           {(cadPreviewUrl || pcbPreviewUrl || schematicPreviewUrl) && (
-            <>
-              <div>
-                <h3 className="rf-text-lg rf-font-semibold rf-mb-4">Preview</h3>
-                <Tabs
-                  value={previewTab}
-                  onValueChange={(value) =>
-                    onPreviewTabChange(value as "pcb" | "schematic" | "3d")
-                  }
-                >
-                  <TabsList className="rf-inline-flex rf-h-9 rf-items-center rf-justify-center rf-rounded-lg rf-bg-zinc-100 rf-p-1 rf-text-zinc-500 dark:rf-bg-zinc-800 dark:rf-text-zinc-400">
-                    {pcbPreviewUrl && (
-                      <TabsTrigger value="pcb">PCB</TabsTrigger>
-                    )}
-                    {schematicPreviewUrl && (
-                      <TabsTrigger value="schematic">Schematic</TabsTrigger>
-                    )}
-                    {cadPreviewUrl && <TabsTrigger value="3d">3D</TabsTrigger>}
-                  </TabsList>
+            <div>
+              <h3 className="rf-text-lg rf-font-semibold rf-mb-4">Preview</h3>
+              <Tabs
+                value={previewTab}
+                onValueChange={(value) =>
+                  onPreviewTabChange(value as "pcb" | "schematic" | "3d")
+                }
+              >
+                <TabsList className="rf-inline-flex rf-h-9 rf-items-center rf-justify-center rf-rounded-lg rf-bg-zinc-100 rf-p-1 rf-text-zinc-500 dark:rf-bg-zinc-800 dark:rf-text-zinc-400">
+                  {pcbPreviewUrl && <TabsTrigger value="pcb">PCB</TabsTrigger>}
+                  {schematicPreviewUrl && (
+                    <TabsTrigger value="schematic">Schematic</TabsTrigger>
+                  )}
+                  {cadPreviewUrl && <TabsTrigger value="3d">3D</TabsTrigger>}
+                </TabsList>
 
-                  <div className="rf-mt-4">
-                    <TabsContent
-                      value="pcb"
-                      className="rf-border rf-rounded-lg rf-overflow-hidden rf-bg-gray-50"
-                    >
-                      {pcbPreviewUrl ? (
-                        <img
-                          src={pcbPreviewUrl}
-                          alt={`${packageName ?? "package"} PCB preview`}
-                          className="rf-w-full rf-h-full rf-object-contain rf-bg-white rf-p-4"
-                        />
-                      ) : null}
-                    </TabsContent>
-                    <TabsContent
-                      value="schematic"
-                      className="rf-border rf-rounded-lg rf-overflow-hidden rf-bg-gray-50"
-                    >
-                      {schematicPreviewUrl ? (
-                        <img
-                          src={schematicPreviewUrl}
-                          alt={`${packageName ?? "package"} schematic preview`}
-                          className="rf-w-full rf-h-full rf-object-contain rf-bg-white rf-p-4"
-                        />
-                      ) : null}
-                    </TabsContent>
-                    <TabsContent
-                      value="3d"
-                      className="rf-border rf-rounded-lg rf-overflow-hidden rf-bg-gray-50"
-                    >
-                      {cadPreviewUrl ? (
-                        <img
-                          src={cadPreviewUrl}
-                          alt={`${packageName ?? "package"} 3D preview`}
-                          className="rf-w-full rf-h-full rf-object-contain rf-bg-white rf-p-4"
-                        />
-                      ) : null}
-                    </TabsContent>
-                  </div>
-                </Tabs>
-              </div>
-            </>
+                <div className="rf-mt-4">
+                  <TabsContent
+                    value="pcb"
+                    className="rf-border rf-rounded-lg rf-overflow-hidden rf-bg-gray-50"
+                  >
+                    {pcbPreviewUrl ? (
+                      <img
+                        src={pcbPreviewUrl}
+                        alt={`${packageName ?? "package"} PCB preview`}
+                        className="rf-w-full rf-h-full rf-object-contain rf-bg-white rf-p-4"
+                      />
+                    ) : null}
+                  </TabsContent>
+                  <TabsContent
+                    value="schematic"
+                    className="rf-border rf-rounded-lg rf-overflow-hidden rf-bg-gray-50"
+                  >
+                    {schematicPreviewUrl ? (
+                      <img
+                        src={schematicPreviewUrl}
+                        alt={`${packageName ?? "package"} schematic preview`}
+                        className="rf-w-full rf-h-full rf-object-contain rf-bg-white rf-p-4"
+                      />
+                    ) : null}
+                  </TabsContent>
+                  <TabsContent
+                    value="3d"
+                    className="rf-border rf-rounded-lg rf-overflow-hidden rf-bg-gray-50"
+                  >
+                    {cadPreviewUrl ? (
+                      <img
+                        src={cadPreviewUrl}
+                        alt={`${packageName ?? "package"} 3D preview`}
+                        className="rf-w-full rf-h-full rf-object-contain rf-bg-white rf-p-4"
+                      />
+                    ) : null}
+                  </TabsContent>
+                </div>
+              </Tabs>
+            </div>
           )}
 
           {details?.ai_description ? (

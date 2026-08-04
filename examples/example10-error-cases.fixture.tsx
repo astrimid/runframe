@@ -1,5 +1,5 @@
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
-import React, { useState } from "react"
+import { useState } from "react"
 
 export default () => {
   const [fsMap, setFsMap] = useState<Record<string, string>>({
@@ -22,6 +22,7 @@ circuit.add(
 
         <div>
           <button
+            type="button"
             onClick={() => {
               setFsMap({ "main.tsx": "" })
               setEntrypoint("main.tsx")
@@ -31,6 +32,7 @@ circuit.add(
             Try Empty Code
           </button>
           <button
+            type="button"
             onClick={() => {
               setFsMap({ "main.tsx": "// some code" })
               setEntrypoint("")
@@ -40,6 +42,7 @@ circuit.add(
             Try Missing Entrypoint
           </button>
           <button
+            type="button"
             onClick={() => {
               setFsMap({
                 "main.tsx": `

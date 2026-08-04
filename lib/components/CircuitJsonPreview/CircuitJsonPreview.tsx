@@ -7,13 +7,7 @@ import {
 import { cn } from "lib/utils"
 import { hasSimulationAnalysisResult } from "lib/utils/has-simulation-analysis-result"
 import { CadViewer } from "@tscircuit/3d-viewer"
-import {
-  useCallback,
-  useEffect,
-  useState,
-  useMemo,
-  type ComponentProps,
-} from "react"
+import { useCallback, useEffect, useState, useMemo } from "react"
 import { ErrorFallback } from "../ErrorFallback"
 import { ErrorBoundary, type FallbackProps } from "react-error-boundary"
 import { ErrorTabContent } from "../ErrorTabContent/ErrorTabContent"
@@ -102,22 +96,21 @@ export const CircuitJsonPreview = ({
   showRightHeaderContent = true,
   showCodeTab = false,
   codeTabContent,
-  showJsonTab = true,
+
   showRenderLogTab = true,
   onActiveTabChange,
   renderLog,
-  showImportAndFormatButtons = true,
+
   className,
   headerClassName,
   leftHeaderContent,
-  readOnly,
-  isStreaming,
+
   autoroutingLog,
   onReportAutoroutingLog,
   isRunningCode,
   hasCodeChangedSinceLastRun,
   onEditEvent,
-  editEvents,
+
   defaultActiveTab,
   defaultTab,
   availableTabs,
@@ -467,7 +460,7 @@ export const CircuitJsonPreview = ({
                         {version
                           .split(".")
                           .map((part, i) =>
-                            i === 2 ? parseInt(part) + 1 : part,
+                            i === 2 ? parseInt(part, 10) + 1 : part,
                           )
                           .join(".")}
                       </div>
@@ -591,7 +584,7 @@ export const CircuitJsonPreview = ({
                       //     return
                       //   // Update state with new edit events
                       //   const newManualEditsFileContent = applyPcbEditEvents({
-                      //     editEvents,
+                      //
                       //     circuitJson,
                       //     manualEditsFileContent,
                       //   })

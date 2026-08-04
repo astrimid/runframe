@@ -90,9 +90,7 @@ export default () => {
       })
     }
 
-    seedSlowAnalogSimulationFixture().catch((error) => {
-      console.error("Failed to seed slow analog simulation fixture", error)
-    })
+    seedSlowAnalogSimulationFixture().catch((_error) => {})
   }, [])
 
   if (!isFileApiAccessible()) {

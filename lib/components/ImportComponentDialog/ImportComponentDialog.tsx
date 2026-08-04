@@ -26,7 +26,7 @@ import { importComponentFromJlcpcb } from "lib/optional-features/importing/impor
 import { toast } from "lib/utils/toast"
 import Debug from "debug"
 
-const debug = Debug("run-frame:ImportComponentDialog")
+const _debug = Debug("run-frame:ImportComponentDialog")
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -120,7 +120,6 @@ export const ImportComponentDialog = ({
           {
             loading: `Importing component: "${component.name}"`,
             error: (error: Error) => {
-              console.error("IMPORT ERROR", error)
               return `Error importing component: "${component.name}": ${error.toString()}`
             },
             success: (data: any) => {
@@ -146,8 +145,7 @@ export const ImportComponentDialog = ({
         const data = await response.json()
         setPackageDetails(data.package || null)
       }
-    } catch (error) {
-      console.error("Error fetching package details:", error)
+    } catch (_error) {
       setPackageDetails(null)
     } finally {
       setPackageDetailsLoading(false)
@@ -189,8 +187,7 @@ export const ImportComponentDialog = ({
         )
         setSearchResults(mappedResults)
       }
-    } catch (error) {
-      console.error("Error searching components:", error)
+    } catch (_error) {
       // Show empty results with an error message
       setSearchResults([])
       // Could add error state handling here if needed
@@ -304,9 +301,10 @@ export const ImportComponentDialog = ({
             {searchResults.length > 0 ? (
               <div className="rf-divide-y">
                 {searchResults.map((result) => (
-                  <div
+                  <button
                     key={result.id}
-                    className={`rf-p-3 rf-flex rf-flex-col sm:rf-grid sm:rf-grid-cols-[1fr_auto] rf-items-start sm:rf-items-center rf-cursor-pointer hover:rf-bg-zinc-100 rf-gap-2 ${
+                    type="button"
+                    className={`rf-p-3 rf-flex rf-flex-col sm:rf-grid sm:rf-grid-cols-[1fr_auto] rf-items-start sm:rf-items-center rf-cursor-pointer hover:rf-bg-zinc-100 rf-gap-2 rf-w-full rf-text-left ${
                       selectedComponent?.id === result.id
                         ? "rf-bg-zinc-100"
                         : ""
@@ -345,7 +343,7 @@ export const ImportComponentDialog = ({
                         </Button>
                       )}
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
             ) : isLoading ? (
@@ -426,9 +424,9 @@ export const ImportComponentDialog = ({
                   <div className="rf-space-y-3">
                     {detailsComponent?.owner && (
                       <div>
-                        <label className="rf-text-xs rf-font-medium rf-text-gray-500 rf-uppercase rf-tracking-wide">
+                        <p className="rf-text-xs rf-font-medium rf-text-gray-500 rf-uppercase rf-tracking-wide">
                           Created by
-                        </label>
+                        </p>
                         <div className="rf-mt-1 rf-text-sm rf-font-medium">
                           <a
                             href={`https://tscircuit.com/${detailsComponent?.owner}`}

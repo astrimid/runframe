@@ -1,5 +1,5 @@
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
-import React, { useState, useRef } from "react"
+import { useState, useRef } from "react"
 
 export default () => {
   // New state to collect onEditEvent events
@@ -59,7 +59,7 @@ circuit.add(
 `,
           "manual-edits.json": "{}",
         }}
-        onReportAutoroutingLog={(name, data) => {
+        onReportAutoroutingLog={(_name, _data) => {
           window.alert("reporting...")
         }}
         onEditEvent={handleEditEvent}

@@ -247,7 +247,6 @@ export const ImportComponentDialog2 = ({
       }
       return true
     } catch (error) {
-      console.error("Failed to import component", error)
       setImportErrorMessage(
         error instanceof Error ? error.message : "Failed to import component",
       )

@@ -77,7 +77,6 @@ export const RunFrameStaticBuildViewer = (
       }
 
       if (failedFiles.has(filePath)) {
-        console.warn(`Skipping failed file: ${filePath}`)
         setCircuitJson(null)
         return
       }
@@ -109,8 +108,7 @@ export const RunFrameStaticBuildViewer = (
           newSet.delete(filePath)
           return newSet
         })
-      } catch (error) {
-        console.error(`Failed to load circuit JSON file ${filePath}:`, error)
+      } catch (_error) {
         setFailedFiles((prev) => new Set(prev).add(filePath))
         setCircuitJson(null)
       } finally {
@@ -227,6 +225,7 @@ export const RunFrameStaticBuildViewer = (
               </p>
               <div className="rf-flex rf-flex-col rf-items-center rf-gap-2">
                 <button
+                  type="button"
                   onClick={() => retryFailedFile(currentCircuitJsonPath)}
                   className="rf-px-4 rf-py-2 rf-bg-blue-500 rf-text-white rf-rounded rf-hover:bg-blue-600"
                 >

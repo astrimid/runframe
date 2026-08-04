@@ -18,31 +18,26 @@ interface TscircuitSearchResponse {
 export const searchTscircuitComponents = async (
   query: string,
 ): Promise<Package[]> => {
-  try {
-    // Make the API request
-    const response = await fetch(
-      "https://registry-api.tscircuit.com/packages/search",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: query }),
+  // Make the API request
+  const response = await fetch(
+    "https://registry-api.tscircuit.com/packages/search",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify({ query: query }),
+    },
+  )
+
+  if (!response.ok) {
+    throw new Error(
+      `tscircuit Registry API error: ${response.status} ${response.statusText}`,
     )
-
-    if (!response.ok) {
-      throw new Error(
-        `tscircuit Registry API error: ${response.status} ${response.statusText}`,
-      )
-    }
-
-    const data: TscircuitSearchResponse = await response.json()
-    return data.packages || []
-  } catch (error) {
-    console.error("Error searching tscircuit components:", error)
-    throw error
   }
+
+  const data: TscircuitSearchResponse = await response.json()
+  return data.packages || []
 }
 
 /**

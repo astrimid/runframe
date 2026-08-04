@@ -3,7 +3,7 @@ import type { AnyCircuitElement } from "circuit-json"
 import { useOrderDialog } from "lib/components/OrderDialog/useOrderDialog"
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
 import { Button } from "lib/components/ui/button"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 const circuitJson: AnyCircuitElement[] = []
 
@@ -15,7 +15,7 @@ export default () => {
     }
   }, [])
 
-  const [code, setCode] = useState(
+  const [code, _setCode] = useState(
     `
 // edit me
 circuit.add(

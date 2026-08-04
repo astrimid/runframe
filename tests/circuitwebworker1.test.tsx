@@ -1,7 +1,6 @@
 import { test, expect } from "bun:test"
 import { createCircuitWebWorker } from "@tscircuit/eval"
 import evalWebWorkerBlobUrl from "@tscircuit/eval/blob-url"
-import type { PcbComponent } from "circuit-json"
 
 test(
   "CircuitWebWorker should handle circuit evaluation",

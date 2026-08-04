@@ -1,6 +1,6 @@
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
 import type { TabId } from "lib/components/CircuitJsonPreview/PreviewContentProps"
-import React, { useState } from "react"
+import { useState } from "react"
 
 export default () => {
   const allTabs: TabId[] = [
@@ -43,17 +43,19 @@ export default () => {
           ))}
         </div>
         <div className="rf-mt-2">
-          <label className="rf-mr-2">Default Tab:</label>
-          <select
-            value={defaultTab}
-            onChange={(e) => setDefaultTab(e.target.value as TabId)}
-          >
-            {availableTabs.map((tab) => (
-              <option key={tab} value={tab}>
-                {tab}
-              </option>
-            ))}
-          </select>
+          <label className="rf-mr-2">
+            Default Tab:{" "}
+            <select
+              value={defaultTab}
+              onChange={(e) => setDefaultTab(e.target.value as TabId)}
+            >
+              {availableTabs.map((tab) => (
+                <option key={tab} value={tab}>
+                  {tab}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
       </div>
       <RunFrame

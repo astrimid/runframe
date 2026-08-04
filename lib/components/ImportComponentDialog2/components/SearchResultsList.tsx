@@ -106,9 +106,10 @@ export const SearchResultsList = ({
           result.source === "jlcpcb" ? result.component.isDirectLookup : false
 
         return (
-          <div
+          <button
             key={key}
-            className={`rf-p-3 rf-flex rf-flex-col sm:rf-grid sm:rf-grid-cols-[minmax(0,1fr)_auto] rf-items-start sm:rf-items-center rf-cursor-pointer hover:rf-bg-zinc-100 rf-gap-2 rf-overflow-hidden ${isSelected ? "rf-bg-zinc-100" : ""}`}
+            type="button"
+            className={`rf-p-3 rf-flex rf-flex-col sm:rf-grid sm:rf-grid-cols-[minmax(0,1fr)_auto] rf-items-start sm:rf-items-center rf-cursor-pointer hover:rf-bg-zinc-100 rf-gap-2 rf-overflow-hidden rf-w-full rf-text-left ${isSelected ? "rf-bg-zinc-100" : ""}`}
             onClick={() => onSelect(result)}
           >
             <div className="rf-min-w-0 rf-overflow-hidden rf-w-full">
@@ -175,7 +176,7 @@ export const SearchResultsList = ({
                 </div>
               )}
             </div>
-          </div>
+          </button>
         )
       })}
     </div>

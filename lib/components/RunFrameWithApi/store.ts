@@ -3,7 +3,7 @@ import type { ManualEditEvent } from "@tscircuit/props"
 import type { CircuitJson } from "circuit-json"
 import Debug from "lib/utils/debug"
 import { create } from "zustand"
-import { devtools, persist } from "zustand/middleware"
+import { devtools } from "zustand/middleware"
 import { API_BASE } from "./api-base"
 import type {
   File,

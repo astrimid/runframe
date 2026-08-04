@@ -1,6 +1,5 @@
 import type { ManualEditEvent } from "@tscircuit/props"
 import type { CircuitJson } from "circuit-json"
-import type { ComponentSearchResult } from "../ImportComponentDialog"
 // Types
 export type FilePath = string
 export type FileContent = string

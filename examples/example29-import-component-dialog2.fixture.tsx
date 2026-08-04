@@ -97,6 +97,7 @@ export default function ImportComponentDialog2Fixture() {
       </div>
 
       <button
+        type="button"
         className="rf-inline-flex rf-items-center rf-justify-center rf-rounded rf-bg-blue-600 rf-px-4 rf-py-2 rf-text-sm rf-font-medium rf-text-white hover:rf-bg-blue-700"
         onClick={() => setIsOpen(true)}
       >

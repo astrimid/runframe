@@ -1,5 +1,4 @@
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
-import React from "react"
 
 export default () => (
   <RunFrame
@@ -42,7 +41,7 @@ circuit.add(
 `,
       "manual-edits.json": "{}",
     }}
-    onReportAutoroutingLog={(name, data) => {
+    onReportAutoroutingLog={(_name, _data) => {
       window.alert("reporting...")
     }}
     defaultActiveTab="pcb"

@@ -1,11 +1,4 @@
-import type { CircuitJson } from "circuit-json"
-import { CircuitJsonPreview } from "lib/components/CircuitJsonPreview/CircuitJsonPreview"
-import {
-  fullRenderToCircuitJson,
-  renderToCircuitJson,
-} from "lib/dev/render-to-circuit-json"
 import { RunFrame } from "lib/runner"
-import { useEffect, useState } from "react"
 
 export default () => {
   return (

@@ -63,9 +63,7 @@ export const fullFledge = () => (
     projectName="full-featured-project"
     debug={true}
     initialCircuitPath="index.tsx"
-    onCircuitJsonPathChange={(c) => {
-      console.info(c)
-    }}
+    onCircuitJsonPathChange={(_c) => {}}
     defaultToFullScreen={false}
     showToggleFullScreen={true}
     showFileMenu={false}

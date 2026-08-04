@@ -1,5 +1,5 @@
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
-import React, { useState } from "react"
+import { useState } from "react"
 
 export default () => {
   const [code, setCode] = useState(

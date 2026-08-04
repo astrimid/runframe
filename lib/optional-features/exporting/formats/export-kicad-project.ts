@@ -49,9 +49,7 @@ export const createKicadProjectZip = async ({
     onModelFile: ({ outputPath, content }) => {
       zip.file(outputPath, content)
     },
-    onError: ({ sourcePath }) => {
-      console.warn(`Failed to load 3D model from ${sourcePath}`)
-    },
+    onError: () => {},
   })
 
   return zip

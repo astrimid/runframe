@@ -59,10 +59,22 @@
           "options": {
             "strictCase": true,
             "requireAscii": true,
-            "filenameCases": ["kebab-case", "export"]
+            "filenameCases": ["kebab-case", "export", "PascalCase", "camelCase"]
           }
         }
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["examples/**/*.fixture.tsx"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useFilenamingConvention": "off"
+          }
+        }
+      }
+    }
+  ]
 }

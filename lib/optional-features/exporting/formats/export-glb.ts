@@ -28,8 +28,7 @@ export const exportGlb = async ({
     blob = new Blob([glbArrayBuffer], {
       type: "model/gltf-binary",
     })
-  } catch (error) {
-    console.error("GLB Export Error:", error)
+  } catch (_error) {
     return
   }
 

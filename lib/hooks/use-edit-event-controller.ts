@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo } from "react"
+import { useState, useCallback, useEffect } from "react"
 import type { ManualEditEvent } from "@tscircuit/props"
 import { useRunFrameStore } from "lib/components/RunFrameWithApi/store"
 import Debug from "lib/utils/debug"

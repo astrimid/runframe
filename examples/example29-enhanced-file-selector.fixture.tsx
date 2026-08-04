@@ -1,11 +1,11 @@
 import { RunFrameWithApi } from "lib/components/RunFrameWithApi/RunFrameWithApi"
 import { useRunFrameStore } from "lib/components/RunFrameWithApi/store"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { DebugEventsTable } from "./utils/DebugEventsTable"
 import { isFileApiAccessible } from "./utils/isFileApiAccessible.ts"
 
 export default () => {
-  const recentEvents = useRunFrameStore((state) => state.recentEvents)
+  const _recentEvents = useRunFrameStore((state) => state.recentEvents)
 
   useEffect(() => {
     if (typeof window !== "undefined") {

@@ -19,7 +19,6 @@ export const importComponentFromJlcpcb = async (
   const fileName = tsx.match(/export const (\w+) = .*/)?.[1]
 
   if (!fileName) {
-    console.error("COULD NOT DETERMINE FILE NAME OF CONVERTED COMPONENT:", tsx)
     throw new Error(`Could not determine file name of converted component`)
   }
 

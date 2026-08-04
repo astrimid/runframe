@@ -1,5 +1,4 @@
 import { orderedRenderPhases, type RenderPhase } from "@tscircuit/core"
-import React from "react"
 
 export const getPhaseColor = (phase: string) => {
   const index = orderedRenderPhases.indexOf(phase as RenderPhase)

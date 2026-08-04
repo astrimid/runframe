@@ -113,7 +113,7 @@ export interface RunFrameWithApiProps {
 }
 
 export const RunFrameWithApi = (props: RunFrameWithApiProps) => {
-  const { apiBaseUrl, leftHeaderContent } = props
+  const { apiBaseUrl } = props
   useEffect(() => {
     if (props.debug) Debug.enable("run-frame*")
   }, [props.debug])

@@ -53,8 +53,7 @@ const createSimulatedCircuitJson = async () => {
 
     // Step 3: Get CircuitJSON (includes simulation data if produced by the platform)
     return circuit.getCircuitJson()
-  } catch (error) {
-    console.error("Simulation failed:", error)
+  } catch (_error) {
     // Return basic CircuitJSON if simulation fails
     const fallbackCircuit = new Core.Circuit()
     fallbackCircuit.add(SwitchCircuitElement)
@@ -80,7 +79,6 @@ export default () => {
         setSimulatedCircuitJson(result)
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load circuit")
-        console.error("Error loading circuit:", err)
       } finally {
         setIsLoading(false)
       }

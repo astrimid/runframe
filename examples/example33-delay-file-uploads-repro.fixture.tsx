@@ -1,5 +1,5 @@
 import { RunFrameForCli } from "lib/components/RunFrameForCli/RunFrameForCli"
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 
 export default () => {
   useEffect(() => {
@@ -48,9 +48,7 @@ export default () => (
             }),
           })
         }, 2000)
-      } catch (e) {
-        console.error("Failed to seed example33 files", e)
-      }
+      } catch (_e) {}
     }
     seed()
   }, [])

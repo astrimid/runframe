@@ -24,27 +24,20 @@ export const searchJLCComponents = async (
   query: string,
   limit = 10,
 ): Promise<JLCComponent[]> => {
-  try {
-    // Encode the query parameters
-    const encodedQuery = encodeURIComponent(query)
+  // Encode the query parameters
+  const encodedQuery = encodeURIComponent(query)
 
-    // Make the API request
-    const response = await fetch(
-      `https://jlcsearch.tscircuit.com/api/search?limit=${limit}&q=${encodedQuery}`,
-    )
+  // Make the API request
+  const response = await fetch(
+    `https://jlcsearch.tscircuit.com/api/search?limit=${limit}&q=${encodedQuery}`,
+  )
 
-    if (!response.ok) {
-      throw new Error(
-        `JLC API error: ${response.status} ${response.statusText}`,
-      )
-    }
-
-    const data: JLCSearchResponse = await response.json()
-    return data.components || []
-  } catch (error) {
-    console.error("Error searching JLC components:", error)
-    throw error
+  if (!response.ok) {
+    throw new Error(`JLC API error: ${response.status} ${response.statusText}`)
   }
+
+  const data: JLCSearchResponse = await response.json()
+  return data.components || []
 }
 
 /**

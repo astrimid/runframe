@@ -40,9 +40,7 @@ export function getRegistryKy() {
 
           try {
             serverError = await response.clone().json()
-          } catch (jsonError) {
-            console.error("Failed to parse registry error response", jsonError)
-          }
+          } catch (_jsonError) {}
 
           const errorMessage =
             serverError?.error?.message ??

@@ -40,7 +40,6 @@ export const useJlcpcbComponentSearch = () => {
       setResults(mappedResults)
       return mappedResults
     } catch (error) {
-      console.error("Error searching JLCPCB components", error)
       const directResults = addDirectJlcpcbLookupResult(query, [])
       setResults(directResults)
       setError(

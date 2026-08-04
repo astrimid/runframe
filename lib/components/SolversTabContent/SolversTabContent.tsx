@@ -207,7 +207,6 @@ export const SolversTabContent = ({
       return { instance, error: null, classFound: true }
     } catch (e) {
       const errorMessage = e instanceof Error ? e.message : String(e)
-      console.error("Failed to reconstruct solver:", e)
       return {
         instance: null,
         error: `Failed to instantiate solver: ${errorMessage}`,
@@ -245,9 +244,10 @@ export const SolversTabContent = ({
           const solver = solversById.get(id)!
           const isSelected = selectedSolverId === id
           return (
-            <div
+            <button
               key={id}
-              className={`rf-px-3 rf-py-2 rf-cursor-pointer rf-border-b rf-border-gray-100 ${
+              type="button"
+              className={`rf-px-3 rf-py-2 rf-cursor-pointer rf-border-b rf-border-gray-100 rf-w-full rf-text-left ${
                 isSelected
                   ? "rf-bg-blue-50 rf-border-l-2 rf-border-l-blue-500"
                   : "hover:rf-bg-gray-50"
@@ -270,7 +270,7 @@ export const SolversTabContent = ({
                   </div>
                 )
               })()}
-            </div>
+            </button>
           )
         })}
       </div>

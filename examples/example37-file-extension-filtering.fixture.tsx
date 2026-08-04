@@ -144,6 +144,7 @@ export default () => {
             Test Actions:
           </h3>
           <button
+            type="button"
             onClick={deleteComponentFile}
             style={{
               padding: "10px 15px",

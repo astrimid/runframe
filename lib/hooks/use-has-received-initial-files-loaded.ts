@@ -26,9 +26,7 @@ export const useHasReceivedInitialFilesLoaded = () => {
             return
           }
         }
-      } catch (e) {
-        console.error("Failed to check for event history", e)
-      }
+      } catch (_e) {}
       debug("No INITIAL_FILES_UPLOADED in history, waiting for polling.")
     }
 

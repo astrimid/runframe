@@ -138,12 +138,16 @@ export const ErrorTabContent = ({
 
   const [expandedErrors, setExpandedErrors] = useState<Set<number>>(() => {
     const allIndexes = new Set<number>()
-    unifiedErrors.forEach((_, i) => allIndexes.add(i))
+    unifiedErrors.forEach((_, i) => {
+      allIndexes.add(i)
+    })
     return allIndexes
   })
   const [expandedWarnings, setExpandedWarnings] = useState<Set<number>>(() => {
     const allIndexes = new Set<number>()
-    unifiedWarnings.forEach((_, i) => allIndexes.add(i))
+    unifiedWarnings.forEach((_, i) => {
+      allIndexes.add(i)
+    })
     return allIndexes
   })
   const [errorsCollapsed, setErrorsCollapsed] = useState(false)
@@ -208,230 +212,227 @@ export const ErrorTabContent = ({
   }
 
   return (
-    <>
-      <div className="rf-w-full rf-flex rf-flex-col rf-h-full">
-        <div className="rf-overflow-y-auto rf-min-h-0">
-          {unifiedErrors.length > 0 && (
-            <div className="rf-mt-2">
-              <div
-                className="rf-text-xs rf-text-red-700 rf-font-semibold rf-px-2 rf-py-1 rf-bg-red-50 rf-border-b rf-border-red-200 rf-flex rf-items-center rf-gap-2 rf-cursor-pointer hover:rf-bg-red-100"
-                onClick={() => setErrorsCollapsed(!errorsCollapsed)}
-              >
-                {errorsCollapsed ? (
-                  <ChevronRight className="rf-h-3 rf-w-3 rf-text-red-700" />
-                ) : (
-                  <ChevronDown className="rf-h-3 rf-w-3 rf-text-red-700" />
-                )}
-                <span>
-                  {unifiedErrors.length}{" "}
-                  {unifiedErrors.length === 1 ? "error" : "errors"}
-                </span>
-              </div>
-              {!errorsCollapsed &&
-                unifiedErrors.map((error, index) => {
-                  const isExpanded = expandedErrors.has(index)
-                  const previewMessage = error.message
-                  const hasDetails =
-                    error.stack || evalVersion || softwareUsedString
+    <div className="rf-w-full rf-flex rf-flex-col rf-h-full">
+      <div className="rf-overflow-y-auto rf-min-h-0">
+        {unifiedErrors.length > 0 && (
+          <div className="rf-mt-2">
+            <button
+              type="button"
+              className="rf-text-xs rf-text-red-700 rf-font-semibold rf-px-2 rf-py-1 rf-bg-red-50 rf-border-b rf-border-red-200 rf-flex rf-items-center rf-gap-2 rf-cursor-pointer hover:rf-bg-red-100"
+              onClick={() => setErrorsCollapsed(!errorsCollapsed)}
+            >
+              {errorsCollapsed ? (
+                <ChevronRight className="rf-h-3 rf-w-3 rf-text-red-700" />
+              ) : (
+                <ChevronDown className="rf-h-3 rf-w-3 rf-text-red-700" />
+              )}
+              <span>
+                {unifiedErrors.length}{" "}
+                {unifiedErrors.length === 1 ? "error" : "errors"}
+              </span>
+            </button>
+            {!errorsCollapsed &&
+              unifiedErrors.map((error, index) => {
+                const isExpanded = expandedErrors.has(index)
+                const _previewMessage = error.message
+                const hasDetails =
+                  error.stack || evalVersion || softwareUsedString
 
-                  return (
-                    <div
-                      key={index}
-                      className="rf-bg-white hover:rf-bg-red-100"
+                return (
+                  <div key={index} className="rf-bg-white hover:rf-bg-red-100">
+                    <button
+                      type="button"
+                      className="rf-w-full rf-text-left rf-flex rf-items-start rf-gap-1 rf-px-2 rf-pt-1 rf-pb-1 rf-cursor-pointer rf-bg-red-50/50"
+                      onClick={() => hasDetails && toggleError(index)}
                     >
                       <div
-                        className="rf-flex rf-items-start rf-gap-1 rf-px-2 rf-pt-1 rf-pb-1 rf-cursor-pointer rf-bg-red-50/50"
-                        onClick={() => hasDetails && toggleError(index)}
+                        className="rf-flex rf-items-center rf-gap-2"
+                        style={{ marginTop: "2px" }}
                       >
-                        <div
-                          className="rf-flex rf-items-center rf-gap-2"
-                          style={{ marginTop: "2px" }}
-                        >
-                          <XCircle className="rf-h-4 rf-w-4 rf-text-red-500 rf-flex-shrink-0" />
-                          {hasDetails && (
-                            <ChevronRight
-                              className={`rf-h-3 rf-w-3 rf-text-red-500 rf-flex-shrink-0 rf-transition-transform ${isExpanded ? "rf-rotate-90" : ""}`}
-                            />
-                          )}
-                        </div>
-                        <div className="rf-flex-1 rf-min-w-0 rf-leading-[1rem]">
-                          <span className="rf-text-xs rf-font-mono rf-text-red-700 rf-leading-[0.95rem]">
-                            {error.type}:
-                          </span>
-                          <span className="rf-text-xs rf-font-mono rf-text-red-600 rf-ml-1 rf-leading-[0.95rem]">
-                            {error.message}
-                          </span>
-                        </div>
-                      </div>
-                      {isExpanded && hasDetails && (
-                        <div className="rf-bg-red-50/50 rf-pl-12">
-                          {error.stack
-                            ?.split("\n")
-                            .filter((line) => line.trim())
-                            .slice(1)
-                            .map((line, i) => (
-                              <div key={i} className="rf-px-2 rf-leading-tight">
-                                <span className="rf-text-xs rf-font-mono rf-text-red-500">
-                                  {line}
-                                </span>
-                              </div>
-                            ))}
-                          {(evalVersion || softwareUsedString) && (
-                            <div className="rf-px-2">
-                              <span className="rf-text-xs rf-font-mono rf-text-red-400">
-                                {evalVersion &&
-                                  `@tscircuit/eval@${evalVersion}`}
-                                {evalVersion && softwareUsedString && " • "}
-                                {softwareUsedString}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  )
-                })}
-            </div>
-          )}
-
-          {unifiedWarnings.length > 0 && (
-            <div className="rf-mt-2">
-              <div
-                className="rf-text-xs rf-text-orange-700 rf-font-semibold rf-px-2 rf-py-1 rf-bg-orange-50 rf-border-b rf-border-orange-200 rf-flex rf-items-center rf-gap-2 rf-cursor-pointer hover:rf-bg-orange-100"
-                onClick={() => setWarningsCollapsed(!warningsCollapsed)}
-              >
-                {warningsCollapsed ? (
-                  <ChevronRight className="rf-h-3 rf-w-3 rf-text-orange-700" />
-                ) : (
-                  <ChevronDown className="rf-h-3 rf-w-3 rf-text-orange-700" />
-                )}
-                <span>
-                  {unifiedWarnings.length}{" "}
-                  {unifiedWarnings.length === 1 ? "warning" : "warnings"}
-                </span>
-              </div>
-              {!warningsCollapsed &&
-                unifiedWarnings.map((warning, index) => {
-                  const isExpanded = expandedWarnings.has(index)
-                  const previewMessage = warning.message
-                  const hasDetails = !!warning.stack
-
-                  return (
-                    <div
-                      key={index}
-                      className="rf-bg-white hover:rf-bg-orange-100"
-                    >
-                      <div
-                        className="rf-flex rf-items-center rf-gap-2 rf-px-2 rf-py-1 rf-cursor-pointer rf-bg-orange-50/50"
-                        onClick={() => hasDetails && toggleWarning(index)}
-                      >
-                        <AlertCircle className="rf-h-4 rf-w-4 rf-text-orange-500 rf-flex-shrink-0" />
+                        <XCircle className="rf-h-4 rf-w-4 rf-text-red-500 rf-flex-shrink-0" />
                         {hasDetails && (
                           <ChevronRight
-                            className={`rf-h-3 rf-w-3 rf-text-orange-500 rf-flex-shrink-0 rf-transition-transform ${isExpanded ? "rf-rotate-90" : ""}`}
+                            className={`rf-h-3 rf-w-3 rf-text-red-500 rf-flex-shrink-0 rf-transition-transform ${isExpanded ? "rf-rotate-90" : ""}`}
                           />
                         )}
-                        <div className="rf-flex-1 rf-min-w-0 rf-flex rf-items-center rf-flex-wrap">
-                          <span className="rf-text-xs rf-font-mono rf-text-orange-700 rf-break-words">
-                            {warning.type}:
-                          </span>
-                          <span className="rf-text-xs rf-font-mono rf-text-orange-600 rf-ml-1 rf-break-words">
-                            {warning.message}
-                          </span>
-                        </div>
                       </div>
-                      {isExpanded && hasDetails && (
-                        <div className="rf-bg-orange-50/50 rf-pl-12">
-                          {warning.stack
-                            ?.split("\n")
-                            .filter((line) => line.trim())
-                            .slice(1)
-                            .map((line, i) => (
-                              <div key={i} className="rf-px-2 rf-leading-tight">
-                                <span className="rf-text-xs rf-font-mono rf-text-orange-500">
-                                  {line}
-                                </span>
-                              </div>
-                            ))}
-                        </div>
+                      <div className="rf-flex-1 rf-min-w-0 rf-leading-[1rem]">
+                        <span className="rf-text-xs rf-font-mono rf-text-red-700 rf-leading-[0.95rem]">
+                          {error.type}:
+                        </span>
+                        <span className="rf-text-xs rf-font-mono rf-text-red-600 rf-ml-1 rf-leading-[0.95rem]">
+                          {error.message}
+                        </span>
+                      </div>
+                    </button>
+                    {isExpanded && hasDetails && (
+                      <div className="rf-bg-red-50/50 rf-pl-12">
+                        {error.stack
+                          ?.split("\n")
+                          .filter((line) => line.trim())
+                          .slice(1)
+                          .map((line, i) => (
+                            <div key={i} className="rf-px-2 rf-leading-tight">
+                              <span className="rf-text-xs rf-font-mono rf-text-red-500">
+                                {line}
+                              </span>
+                            </div>
+                          ))}
+                        {(evalVersion || softwareUsedString) && (
+                          <div className="rf-px-2">
+                            <span className="rf-text-xs rf-font-mono rf-text-red-400">
+                              {evalVersion && `@tscircuit/eval@${evalVersion}`}
+                              {evalVersion && softwareUsedString && " • "}
+                              {softwareUsedString}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+          </div>
+        )}
+
+        {unifiedWarnings.length > 0 && (
+          <div className="rf-mt-2">
+            <button
+              type="button"
+              className="rf-text-xs rf-text-orange-700 rf-font-semibold rf-px-2 rf-py-1 rf-bg-orange-50 rf-border-b rf-border-orange-200 rf-flex rf-items-center rf-gap-2 rf-cursor-pointer hover:rf-bg-orange-100"
+              onClick={() => setWarningsCollapsed(!warningsCollapsed)}
+            >
+              {warningsCollapsed ? (
+                <ChevronRight className="rf-h-3 rf-w-3 rf-text-orange-700" />
+              ) : (
+                <ChevronDown className="rf-h-3 rf-w-3 rf-text-orange-700" />
+              )}
+              <span>
+                {unifiedWarnings.length}{" "}
+                {unifiedWarnings.length === 1 ? "warning" : "warnings"}
+              </span>
+            </button>
+            {!warningsCollapsed &&
+              unifiedWarnings.map((warning, index) => {
+                const isExpanded = expandedWarnings.has(index)
+                const _previewMessage = warning.message
+                const hasDetails = !!warning.stack
+
+                return (
+                  <div
+                    key={index}
+                    className="rf-bg-white hover:rf-bg-orange-100"
+                  >
+                    <button
+                      type="button"
+                      className="rf-w-full rf-text-left rf-flex rf-items-center rf-gap-2 rf-px-2 rf-py-1 rf-cursor-pointer rf-bg-orange-50/50"
+                      onClick={() => hasDetails && toggleWarning(index)}
+                    >
+                      <AlertCircle className="rf-h-4 rf-w-4 rf-text-orange-500 rf-flex-shrink-0" />
+                      {hasDetails && (
+                        <ChevronRight
+                          className={`rf-h-3 rf-w-3 rf-text-orange-500 rf-flex-shrink-0 rf-transition-transform ${isExpanded ? "rf-rotate-90" : ""}`}
+                        />
                       )}
-                    </div>
-                  )
-                })}
-            </div>
-          )}
-        </div>
-
-        <div className="rf-flex rf-gap-2 rf-mt-4 rf-justify-end rf-flex-shrink-0">
-          <AutoroutingLogOptions
-            autoroutingLog={autoroutingLog}
-            onReportAutoroutingLog={onReportAutoroutingLog}
-          />
-          <Button
-            variant="outline"
-            className="rf-p-1"
-            onClick={() => {
-              const firstIssue =
-                unifiedErrors[0] ??
-                unifiedWarnings[0] ??
-                ({
-                  type: "General Issue",
-                  message: "No error or warning details provided.",
-                  source: "execution",
-                } satisfies UnifiedError)
-
-              let errorText = `${firstIssue.type}: ${firstIssue.message}`
-              if (evalVersion) errorText += `\n@tscircuit/eval@${evalVersion}`
-              if (softwareUsedString) errorText += `\n${softwareUsedString}`
-              if (firstIssue.stack) errorText += `\n${firstIssue.stack}`
-              navigator.clipboard.writeText(errorText)
-              toast.success("Error copied to clipboard!")
-            }}
-          >
-            <ClipboardIcon className="rf-w-4 rf-h-4" />
-            Copy Error
-          </Button>
-          <Button
-            variant="outline"
-            className="rf-p-1"
-            onClick={() => {
-              const firstIssue =
-                unifiedErrors[0] ??
-                unifiedWarnings[0] ??
-                ({
-                  type: "General Issue",
-                  message: "No error or warning details provided.",
-                  source: "execution",
-                } satisfies UnifiedError)
-
-              const title = `Error ${firstIssue.type}`
-                .replace(/[^a-zA-Z0-9 ]/g, " ")
-                .replace(/\s+/g, " ")
-                .slice(0, 100)
-
-              let errorDetails = `${firstIssue.type}: ${firstIssue.message}`
-              if (evalVersion)
-                errorDetails += `\n@tscircuit/eval@${evalVersion}`
-              if (softwareUsedString) errorDetails += `\n${softwareUsedString}`
-              if (firstIssue.stack) errorDetails += `\n${firstIssue.stack}`
-
-              let body = `[Package code to reproduce](${packageUrl()})\n\n### Error\n\`\`\`\n${errorDetails}\n\`\`\`\n`
-              if (body.length > 35000) {
-                const truncatedMessage =
-                  firstIssue.message.length > 500
-                    ? `${firstIssue.message.slice(0, 500)}...`
-                    : firstIssue.message
-                body = `[Package code to reproduce](${packageUrl()})\n\n### Error\n\`\`\`\n${firstIssue.type}: ${truncatedMessage}\n\`\`\``
-              }
-
-              openIssue(title, body)
-            }}
-          >
-            <GitHubLogoIcon className="rf-w-4 rf-h-4" />
-            Report Issue
-          </Button>
-        </div>
+                      <div className="rf-flex-1 rf-min-w-0 rf-flex rf-items-center rf-flex-wrap">
+                        <span className="rf-text-xs rf-font-mono rf-text-orange-700 rf-break-words">
+                          {warning.type}:
+                        </span>
+                        <span className="rf-text-xs rf-font-mono rf-text-orange-600 rf-ml-1 rf-break-words">
+                          {warning.message}
+                        </span>
+                      </div>
+                    </button>
+                    {isExpanded && hasDetails && (
+                      <div className="rf-bg-orange-50/50 rf-pl-12">
+                        {warning.stack
+                          ?.split("\n")
+                          .filter((line) => line.trim())
+                          .slice(1)
+                          .map((line, i) => (
+                            <div key={i} className="rf-px-2 rf-leading-tight">
+                              <span className="rf-text-xs rf-font-mono rf-text-orange-500">
+                                {line}
+                              </span>
+                            </div>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+          </div>
+        )}
       </div>
-    </>
+
+      <div className="rf-flex rf-gap-2 rf-mt-4 rf-justify-end rf-flex-shrink-0">
+        <AutoroutingLogOptions
+          autoroutingLog={autoroutingLog}
+          onReportAutoroutingLog={onReportAutoroutingLog}
+        />
+        <Button
+          variant="outline"
+          className="rf-p-1"
+          onClick={() => {
+            const firstIssue =
+              unifiedErrors[0] ??
+              unifiedWarnings[0] ??
+              ({
+                type: "General Issue",
+                message: "No error or warning details provided.",
+                source: "execution",
+              } satisfies UnifiedError)
+
+            let errorText = `${firstIssue.type}: ${firstIssue.message}`
+            if (evalVersion) errorText += `\n@tscircuit/eval@${evalVersion}`
+            if (softwareUsedString) errorText += `\n${softwareUsedString}`
+            if (firstIssue.stack) errorText += `\n${firstIssue.stack}`
+            navigator.clipboard.writeText(errorText)
+            toast.success("Error copied to clipboard!")
+          }}
+        >
+          <ClipboardIcon className="rf-w-4 rf-h-4" />
+          Copy Error
+        </Button>
+        <Button
+          variant="outline"
+          className="rf-p-1"
+          onClick={() => {
+            const firstIssue =
+              unifiedErrors[0] ??
+              unifiedWarnings[0] ??
+              ({
+                type: "General Issue",
+                message: "No error or warning details provided.",
+                source: "execution",
+              } satisfies UnifiedError)
+
+            const title = `Error ${firstIssue.type}`
+              .replace(/[^a-zA-Z0-9 ]/g, " ")
+              .replace(/\s+/g, " ")
+              .slice(0, 100)
+
+            let errorDetails = `${firstIssue.type}: ${firstIssue.message}`
+            if (evalVersion) errorDetails += `\n@tscircuit/eval@${evalVersion}`
+            if (softwareUsedString) errorDetails += `\n${softwareUsedString}`
+            if (firstIssue.stack) errorDetails += `\n${firstIssue.stack}`
+
+            let body = `[Package code to reproduce](${packageUrl()})\n\n### Error\n\`\`\`\n${errorDetails}\n\`\`\`\n`
+            if (body.length > 35000) {
+              const truncatedMessage =
+                firstIssue.message.length > 500
+                  ? `${firstIssue.message.slice(0, 500)}...`
+                  : firstIssue.message
+              body = `[Package code to reproduce](${packageUrl()})\n\n### Error\n\`\`\`\n${firstIssue.type}: ${truncatedMessage}\n\`\`\``
+            }
+
+            openIssue(title, body)
+          }}
+        >
+          <GitHubLogoIcon className="rf-w-4 rf-h-4" />
+          Report Issue
+        </Button>
+      </div>
+    </div>
   )
 }

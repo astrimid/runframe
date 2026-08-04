@@ -1,5 +1,4 @@
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
-import React from "react"
 
 export default () => {
   // Create valid code that generates many circuit JSON errors

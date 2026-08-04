@@ -56,12 +56,14 @@ export default () => {
     <div>
       <div style={{ padding: "10px", background: "#f0f0f0" }}>
         <button
+          type="button"
           onClick={() => deleteFile("test1.tsx")}
           style={{ marginRight: "10px" }}
         >
           Delete test1.tsx
         </button>
         <button
+          type="button"
           onClick={() => deleteFile("test2.tsx")}
           style={{ marginRight: "10px" }}
         >

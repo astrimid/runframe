@@ -10,11 +10,12 @@ export const ClickableText: React.FC<ClickableTextProps> = ({
   onClick,
 }) => {
   return (
-    <span
+    <button
+      type="button"
       className="rf-cursor-pointer rf-underline rf-text-blue-600 rf-mx-2"
       onClick={onClick}
     >
       {text}
-    </span>
+    </button>
   )
 }

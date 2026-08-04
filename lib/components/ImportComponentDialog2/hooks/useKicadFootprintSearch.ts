@@ -24,7 +24,6 @@ export const useKicadFootprintSearch = () => {
       setResults(mappedResults)
       return mappedResults
     } catch (error) {
-      console.error("Error searching KiCad footprints", error)
       setResults([])
       setError(
         error instanceof Error

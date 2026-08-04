@@ -26,11 +26,7 @@ import {
   CommandList,
 } from "../../ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover"
-import {
-  type FileNode,
-  getCurrentFolderContents,
-  parseFilesToTree,
-} from "./parseFilesToTree"
+import { getCurrentFolderContents, parseFilesToTree } from "./parseFilesToTree"
 import { getFilePickerDisplayName } from "./getFilePickerDisplayName"
 import { useCurrentFolder } from "./useCurrentFolder"
 
@@ -69,8 +65,6 @@ export const EnhancedFileSelectorCombobox = ({
   placeholder = "Select file",
   searchPlaceholder = "Search for file",
   emptyMessage = "No files found in this directory.",
-  pinnedFiles = [],
-  onToggleFavorite,
   recentlySavedFiles = [],
 }: {
   files: string[]
@@ -81,26 +75,13 @@ export const EnhancedFileSelectorCombobox = ({
   placeholder?: string
   searchPlaceholder?: string
   emptyMessage?: string
-  /**
-   * Array of file paths to pin at the top of the file selector.
-   * Pinned files appear in a "Favorites" section for quick access.
-   */
-  pinnedFiles?: string[]
-  /**
-   * Callback when a file is toggled as favorite.
-   */
-  onToggleFavorite?: (filePath: string) => void
-  /**
-   * Array of recently saved file paths (from FILE_UPDATED events).
-   * These will be prioritized in the Recent Files section.
-   */
   recentlySavedFiles?: string[]
 }) => {
   const [open, setOpen] = useState(false)
   const [file, setFile] = useState(currentFile)
   const { currentFolder, navigateToFolder, resetManualNavigation } =
     useCurrentFolder({ currentFile: file, files })
-  const [currentFileIndex, setCurrentFileIndex] = useState(0)
+  const [_currentFileIndex, setCurrentFileIndex] = useState(0)
   const [searchValue, setSearchValue] = useState("")
   const [recentlyViewedFiles, setRecentlyViewedFiles] = useLocalStorageState<
     string[]
@@ -322,8 +303,8 @@ export const EnhancedFileSelectorCombobox = ({
   }, [recentlySavedFiles, recentlyViewedFiles, filteredFiles])
 
   const displayPath = currentFolder ?? "/"
-  const shortDisplayPath =
-    displayPath.length > 25 ? "..." + displayPath.slice(-22) : displayPath // Fixed width to eliminate jitter - no dynamic sizing
+  const _shortDisplayPath =
+    displayPath.length > 25 ? `...${displayPath.slice(-22)}` : displayPath // Fixed width to eliminate jitter - no dynamic sizing
   const getDropdownWidth = () => {
     const maxWidth = isSearching ? "rf-max-w-[600px]" : "rf-max-w-[1000px]"
     return `rf-w-full rf-min-w-[600px] ${maxWidth}`
@@ -372,6 +353,7 @@ export const EnhancedFileSelectorCombobox = ({
             {recentFiles.length > 0 && (
               <div className="rf-border-b rf-border-gray-200">
                 <button
+                  type="button"
                   onClick={() => setShowRecents(!showRecents)}
                   className="rf-w-full rf-px-3 rf-py-2 rf-flex rf-items-center rf-justify-between rf-text-xs rf-text-slate-600 hover:rf-bg-slate-50 rf-bg-transparent rf-border-none rf-cursor-pointer"
                 >
@@ -386,11 +368,12 @@ export const EnhancedFileSelectorCombobox = ({
                 {showRecents && (
                   <div className="rf-pb-1">
                     {recentFiles.map((item, index) => (
-                      <div
+                      <button
                         key={item.path}
+                        type="button"
                         onClick={() => selectFile(item.path, index, true)}
                         className={cn(
-                          "rf-flex rf-items-center rf-px-3 rf-py-1.5 rf-cursor-pointer hover:rf-bg-slate-100",
+                          "rf-flex rf-items-center rf-w-full rf-px-3 rf-py-1.5 rf-cursor-pointer hover:rf-bg-slate-100 rf-bg-transparent rf-border-none rf-text-left",
                           item.path === currentFile && "rf-font-medium",
                         )}
                       >
@@ -417,7 +400,7 @@ export const EnhancedFileSelectorCombobox = ({
                               : "rf-opacity-0",
                           )}
                         />
-                      </div>
+                      </button>
                     ))}
                   </div>
                 )}
@@ -429,6 +412,7 @@ export const EnhancedFileSelectorCombobox = ({
               <div className="rf-flex rf-items-center rf-text-xs rf-text-slate-600 rf-min-w-0 rf-flex-1">
                 <div className="rf-flex rf-items-center rf-min-w-0">
                   <button
+                    type="button"
                     onClick={() => handleNavigateToFolder(null)}
                     className="rf-text-blue-600 hover:rf-text-blue-800 rf-underline rf-cursor-pointer rf-bg-transparent rf-border-none rf-p-0 rf-flex-shrink-0"
                   >
@@ -454,6 +438,7 @@ export const EnhancedFileSelectorCombobox = ({
                             </span>
                           ) : (
                             <button
+                              type="button"
                               onClick={() =>
                                 handleNavigateToFolder(pathToSegment)
                               }
@@ -471,6 +456,7 @@ export const EnhancedFileSelectorCombobox = ({
               <div className="rf-flex rf-items-center rf-gap-2 rf-flex-shrink-0">
                 {currentFolder && (
                   <button
+                    type="button"
                     onClick={navigateUp}
                     className="rf-flex rf-items-center rf-gap-1 rf-text-slate-600 hover:rf-text-slate-800 rf-bg-transparent rf-border-none rf-p-1 rf-rounded hover:rf-bg-slate-200 rf-transition-colors"
                     title="Go up one level"
@@ -646,7 +632,7 @@ export const EnhancedFileSelectorCombobox = ({
                       {searchResults.currentDirResults.length > 0 && (
                         <CommandGroup>
                           {searchResults.currentDirResults.map(
-                            (file, index) => (
+                            (file, _index) => (
                               <CommandItem
                                 key={file.path}
                                 value={`search-current:${file.path}`}

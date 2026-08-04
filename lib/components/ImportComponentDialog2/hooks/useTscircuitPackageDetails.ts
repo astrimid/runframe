@@ -20,8 +20,7 @@ export const useTscircuitPackageDetails = () => {
       setDetails(
         (data as { package?: TscircuitPackageDetails }).package ?? null,
       )
-    } catch (error) {
-      console.error("Failed to fetch package details", error)
+    } catch (_error) {
       setDetails(null)
     } finally {
       setIsLoading(false)

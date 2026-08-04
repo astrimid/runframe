@@ -20,7 +20,7 @@ export const useSyncPageTitle = () => {
           return
         }
       }
-    } catch (e) {}
+    } catch (_e) {}
 
     if (entrypoint) {
       document.title = entrypoint

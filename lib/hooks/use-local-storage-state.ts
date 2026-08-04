@@ -20,9 +20,7 @@ export function useLocalStorageState<T>(
       const item = window.localStorage.getItem(key)
       // Return the parsed value if it exists, otherwise return initialValue
       return item ? JSON.parse(item) : initialValue
-    } catch (error) {
-      // If there's an error (e.g., parsing error), return initialValue
-      console.error("Error reading from localStorage:", error)
+    } catch (_error) {
       return initialValue
     }
   })
@@ -32,9 +30,7 @@ export function useLocalStorageState<T>(
     try {
       // Save the state to local storage
       window.localStorage.setItem(key, JSON.stringify(state))
-    } catch (error) {
-      console.error("Error writing to localStorage:", error)
-    }
+    } catch (_error) {}
   }, [key, state])
 
   return [state, setState]

@@ -142,7 +142,6 @@ export const LoginDialog = ({
         setLoginState("idle")
         return
       }
-      console.error("Login error:", error)
       const message =
         error instanceof Error ? error.message : "Failed to complete login"
       setErrorMessage(message)

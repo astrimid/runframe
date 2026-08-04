@@ -136,8 +136,7 @@ export const useBugReportDialog = (
         .then((files) => {
           setBugReportFileCount(files.size)
         })
-        .catch((error) => {
-          console.error("Failed to fetch file count", error)
+        .catch((_error) => {
           setBugReportFileCount(0)
         })
     }
@@ -235,7 +234,6 @@ export const useBugReportDialog = (
       const bugReportUrl = buildBugReportUrl(bugReportId)
       setSuccessState({ bugReportUrl })
     } catch (error) {
-      console.error("Failed to submit bug report", error)
       if (error instanceof HTTPError) {
         if (error.response.status === 401) {
           if (isSessionLoggedIn) {

@@ -1,6 +1,5 @@
 import { useRunFrameStore } from "lib/components/RunFrameWithApi/store"
 import { useState, useEffect } from "react"
-import { DebugEventsTable } from "./utils/DebugEventsTable"
 import { isFileApiAccessible } from "./utils/isFileApiAccessible.ts"
 import { EnhancedFileSelectorCombobox } from "lib/components/RunFrameWithApi/EnhancedFileSelectorCombobox"
 import { useLocalStorageState } from "lib/hooks/use-local-storage-state"

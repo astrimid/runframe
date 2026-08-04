@@ -1,5 +1,4 @@
 import { RunFrameWithIframe } from "lib/components/RunFrameWithIframe/RunFrameWithIframe"
-import React from "react"
 
 // NOTE: We're not passing iframeUrl which means it's going to use the
 // production site iframe! This can make it difficult to test locally

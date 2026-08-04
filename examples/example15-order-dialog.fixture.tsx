@@ -3,7 +3,7 @@ import type { AnyCircuitElement } from "circuit-json"
 import { useOrderDialog } from "lib/components/OrderDialog/useOrderDialog"
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
 import { Button } from "lib/components/ui/button"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { registryKy } from "lib/utils/get-registry-ky"
 import type { Package } from "@tscircuit/fake-snippets/schema"
 
@@ -29,15 +29,13 @@ export default () => {
         })
         const data = (await getResponse.json()) as { package: Package }
         setPackageReleaseId(data.package.latest_package_release_id ?? undefined)
-      } catch (error) {
-        console.error("Failed to fetch package:", error)
-      }
+      } catch (_error) {}
     }
 
     fetchPackage()
   }, [])
 
-  const [code, setCode] = useState(
+  const [code, _setCode] = useState(
     `
 // edit me
 circuit.add(

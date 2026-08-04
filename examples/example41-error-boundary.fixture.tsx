@@ -1,5 +1,5 @@
 import { RunFrame } from "lib/components/RunFrame/RunFrame"
-import React, { useState } from "react"
+import { useState } from "react"
 
 const BrokenComponent = () => {
   throw new Error(
@@ -55,6 +55,7 @@ circuit.add(
           Dev Server" button.
         </p>
         <button
+          type="button"
           onClick={() => setShouldCrash(true)}
           className="rf-px-4 rf-py-2 rf-bg-red-600 rf-text-white rf-rounded hover:rf-bg-red-700"
         >

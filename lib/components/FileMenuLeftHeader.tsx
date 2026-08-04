@@ -68,8 +68,8 @@ export const FileMenuLeftHeader = (props: {
     (s) => s.currentMainComponentPath,
   )
   const [snippetName, setSnippetName] = useState<string | null>(null)
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
-  const [hasNeverBeenSaved, setHasNeverBeenSaved] = useState(true)
+  const [_hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
+  const [_hasNeverBeenSaved, setHasNeverBeenSaved] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [requestToSaveSentAt, setRequestToSaveSentAt] = useState<number | null>(
     null,
@@ -79,9 +79,9 @@ export const FileMenuLeftHeader = (props: {
   )
   const [isSelectSnippetDialogOpen, setIsSelectSnippetDialogOpen] =
     useState(false)
-  const [notificationMessage, setNotificationMessage] = useState<string | null>(
-    null,
-  )
+  const [_notificationMessage, setNotificationMessage] = useState<
+    string | null
+  >(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [isError, setIsError] = useState(false)
   const [isExporting, setisExporting] = useState(false)
@@ -142,7 +142,6 @@ export const FileMenuLeftHeader = (props: {
         saveFailedEvent.message ??
           "Failed to save snippet. See console for error.",
       )
-      console.error(saveFailedEvent.message)
       setIsError(true)
       if (
         saveFailedEvent.error_code === "SNIPPET_UNSET" &&
@@ -220,7 +219,7 @@ export const FileMenuLeftHeader = (props: {
                 </DropdownMenuItem>
 
                 {/* HACK until ordering is ready, only show in cosmos runframe */}
-                {parseInt(window.location.port) > 5000 && (
+                {parseInt(window.location.port, 10) > 5000 && (
                   <DropdownMenuItem
                     className="rf-text-xs"
                     onSelect={() => {

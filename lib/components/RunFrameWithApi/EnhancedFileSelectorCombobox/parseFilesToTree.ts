@@ -35,7 +35,7 @@ function parseFilesToTree(files: string[]): FileNode[] {
         nodeMap.set(currentPath, node)
 
         const parent = nodeMap.get(parentPath)
-        if (parent && parent.children) {
+        if (parent?.children) {
           parent.children.push(node)
         }
       }
@@ -69,7 +69,7 @@ function getCurrentFolderContents(
     targetNode = findNode(tree, currentFolder)
   }
 
-  if (!targetNode || !targetNode.children) {
+  if (!targetNode?.children) {
     return { files: [], folders: [] }
   }
 

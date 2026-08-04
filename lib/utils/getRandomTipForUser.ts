@@ -32,7 +32,7 @@ export const getRandomTipForUser = () => {
   tip = tip.replace(/>/g, "&gt;")
   tip = tip.replace(
     /(?<!href=")(?<!\()(?<!\]\()(https?:\/\/[^\s)\]]+)/g,
-    (match, p1) =>
+    (match, _p1) =>
       `<a class="rf-text-blue-500 rf-underline"  href="${match}" target="_blank">${match}</a>`,
   )
   tip = tip.replace(

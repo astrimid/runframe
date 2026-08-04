@@ -1,4 +1,3 @@
-import * as React from "react"
 import { ImportComponentDialog2 } from "./ImportComponentDialog2"
 import type {
   ImportComponentDialog2Props,

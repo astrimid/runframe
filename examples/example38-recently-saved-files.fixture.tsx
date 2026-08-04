@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { EnhancedFileSelectorCombobox } from "lib/components/RunFrameWithApi/EnhancedFileSelectorCombobox"
 import { useStyles } from "lib/hooks/use-styles"
 import { useLocalStorageState } from "lib/hooks/use-local-storage-state"
@@ -104,6 +104,7 @@ export default () => {
               </span>
             </div>
             <button
+              type="button"
               onClick={handleSaveCurrentFile}
               disabled={!currentFile}
               className="rf-px-4 rf-py-2 rf-bg-green-600 rf-text-white rf-rounded-md rf-text-sm rf-font-medium hover:rf-bg-green-700 disabled:rf-opacity-50 disabled:rf-cursor-not-allowed rf-transition-colors"
@@ -116,12 +117,14 @@ export default () => {
         {/* Action Buttons */}
         <div className="rf-flex rf-gap-4 rf-mb-6">
           <button
+            type="button"
             onClick={handleSimulateRandomSave}
             className="rf-flex-1 rf-px-4 rf-py-3 rf-bg-blue-600 rf-text-white rf-rounded-md rf-text-sm rf-font-medium hover:rf-bg-blue-700 rf-transition-colors"
           >
             🎲 Simulate Random File Save
           </button>
           <button
+            type="button"
             onClick={() => {
               setRecentlySavedFiles([])
               setSaveLog([])
@@ -170,7 +173,7 @@ export default () => {
               </p>
             ) : (
               <ul className="rf-space-y-1 rf-max-h-48 rf-overflow-y-auto">
-                {saveLog.map((entry, index) => (
+                {saveLog.map((entry, _index) => (
                   <li
                     key={`${entry.file}-${entry.timestamp.getTime()}`}
                     className="rf-text-xs rf-font-mono rf-bg-slate-50 rf-px-2 rf-py-1 rf-rounded rf-flex rf-justify-between"
